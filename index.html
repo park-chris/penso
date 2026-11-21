@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko" class="dark scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Penso(펜소) — 오직 이야기에만 집중하는 웹소설 집필 & 설정 관리 공간</title>
+    <meta
+      name="description"
+      content="회원가입과 구독료 없는 로컬-퍼스트 웹소설 전용 에디터 Penso(펜소). 회차별 플롯·복선·등장인물 연결, 통합 설정집 위키, 멀티 마인드맵, 기기 간 암호화 동기화를 무료로 경험해 보세요."
+    />
+    <meta property="og:title" content="Penso(펜소) — 웹소설 집필 & 설정 관리 에디터" />
+    <meta
+      property="og:description"
+      content="소설의 첫 문장부터 완결까지, 오직 이야기에만 집중하는 로컬-퍼스트 웹소설 집필 공간"
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="./penso-icon.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      crossorigin
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('penso-theme');
+          if (saved === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body class="bg-[#F8FAFC] text-[#0F172A] antialiased selection:bg-[#142A52]/15 selection:text-[#142A52] dark:bg-[#0F1420] dark:text-[#E6EAF2] dark:selection:bg-sky-400/20 dark:selection:text-sky-100">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
