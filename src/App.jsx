@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ChevronDown,
   Download,
@@ -13,17 +13,9 @@ import { HeroMockup } from './components/HeroMockup';
 import { FeaturesBento } from './components/FeaturesBento';
 import { SyncSecuritySection } from './components/SyncSecuritySection';
 import { DownloadSection } from './components/DownloadSection';
+import { GuidePage } from './components/GuidePage';
+import { CommunityPage } from './components/CommunityPage';
 import { Footer } from './components/Footer';
-
-const GuidePage = lazy(() =>
-  import('./components/GuidePage').then((m) => ({ default: m.GuidePage }))
-);
-const CommunityPage = lazy(() =>
-  import('./components/CommunityPage').then((m) => ({ default: m.CommunityPage }))
-);
-const ReleaseNotesModal = lazy(() =>
-  import('./components/ReleaseNotesModal').then((m) => ({ default: m.ReleaseNotesModal }))
-);
 
 const VALID_TABS = new Set(['home', 'guide', 'community']);
 
@@ -48,7 +40,6 @@ export default function App() {
     if (typeof document === 'undefined') return true;
     return document.documentElement.classList.contains('dark');
   });
-  const [releaseModalOpen, setReleaseModalOpen] = useState(false);
 
   const snapContainerRef = useRef(null);
   const slideRefs = useRef([]);
@@ -164,7 +155,7 @@ export default function App() {
 
   // Smooth one-slide-at-a-time mouse wheel & keyboard navigation on desktop
   useEffect(() => {
-    if (activeTab !== 'home' || releaseModalOpen) return undefined;
+    if (activeTab !== 'home') return undefined;
     const container = snapContainerRef.current;
     if (!container) return undefined;
 
@@ -227,7 +218,7 @@ export default function App() {
       container.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [activeTab, releaseModalOpen, scrollToSlide]);
+  }, [activeTab, scrollToSlide]);
 
   const handleSelectTab = useCallback(
     (tabId) => {
@@ -377,7 +368,7 @@ export default function App() {
                   </div>
 
                   {/* Interactive Editor Preview right below in the same screen */}
-                  <HeroMockup className="mt-5 sm:mt-6" />
+                  <HeroMockup isDark={isDark} className="mt-5 sm:mt-6" />
                 </div>
               </section>
 
@@ -426,46 +417,20 @@ export default function App() {
                     userOS={userOS}
                   />
                 </div>
-                <Footer
-                  release={release}
-                  onOpenReleaseNotes={() => setReleaseModalOpen(true)}
-                />
+                <Footer />
               </section>
             </main>
           </>
         ) : (
           <>
             <main className="flex-1 pt-16">
-              <Suspense
-                fallback={
-                  <div className="flex items-center justify-center py-24 text-sm text-slate-400 dark:text-[#7D8BA1]">
-                    불러오는 중...
-                  </div>
-                }
-              >
-                {activeTab === 'guide' && <GuidePage />}
-                {activeTab === 'community' && <CommunityPage />}
-              </Suspense>
+              {activeTab === 'guide' && <GuidePage />}
+              {activeTab === 'community' && <CommunityPage />}
             </main>
-            <Footer
-              release={release}
-              onOpenReleaseNotes={() => setReleaseModalOpen(true)}
-            />
+            <Footer />
           </>
         )}
       </div>
-
-      {releaseModalOpen && (
-        <Suspense fallback={null}>
-          <ReleaseNotesModal
-            isOpen={releaseModalOpen}
-            onClose={() => setReleaseModalOpen(false)}
-            release={release}
-            loading={loading}
-            error={error}
-          />
-        </Suspense>
-      )}
     </div>
   );
 }
