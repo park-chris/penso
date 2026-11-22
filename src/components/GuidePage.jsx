@@ -2,12 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  BookOpen,
   ChevronDown,
   ChevronRight,
   List,
-  PanelLeftClose,
-  PanelLeftOpen,
   RefreshCw,
 } from 'lucide-react';
 import { useGuideDocs } from '../hooks/useGuideDocs';
@@ -25,7 +22,6 @@ export function GuidePage() {
   );
 
   const [activeDocId, setActiveDocId] = useState(() => allDocs[0]?.id || '');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openGroups, setOpenGroups] = useState({});
 
@@ -59,7 +55,9 @@ export function GuidePage() {
   const handleSelectDoc = (docId) => {
     setActiveDocId(docId);
     setMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    document
+      .getElementById('page-scroll-container')
+      ?.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const toggleGroup = (groupId) => {
@@ -124,83 +122,59 @@ export function GuidePage() {
 
         {/* Desktop 2-Column Wiki Layout: Left Collapsible Sidebar + Right Article */}
         <div className="flex items-start gap-8 lg:gap-12">
-          {/* Left Sidebar TOC */}
-          <aside className="sticky top-24 hidden shrink-0 lg:block">
-            {sidebarOpen ? (
-              <div className="w-60">
-                <div className="mb-4 flex items-center justify-between px-2">
-                  <span className="inline-flex items-center gap-2 text-xs font-semibold text-[#0F172A] dark:text-[#E6EAF2]">
-                    <BookOpen className="h-3.5 w-3.5 text-[#142A52] dark:text-sky-300" />
-                    <span>사용법 목차</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setSidebarOpen(false)}
-                    className="rounded-md p-1 text-slate-400 transition-colors hover:bg-slate-200/60 hover:text-[#0F172A] dark:text-[#7D8BA1] dark:hover:bg-white/[0.06] dark:hover:text-[#E6EAF2]"
-                    title="목차 접기"
-                    aria-label="목차 접기"
-                  >
-                    <PanelLeftClose className="h-4 w-4" />
-                  </button>
-                </div>
+          {/* Left Sidebar TOC (always open on desktop; collapsible on narrow screens above) */}
+          <aside className="sticky top-6 hidden w-60 shrink-0 lg:block">
+            <div className="mb-4 flex items-center px-2">
+              <span className="inline-flex items-center gap-2 text-xs font-semibold text-[#0F172A] dark:text-[#E6EAF2]">
+                <List className="h-3.5 w-3.5 text-[#142A52] dark:text-sky-300" />
+                <span>사용법 목차</span>
+              </span>
+            </div>
 
-                <nav aria-label="사용법 목차" className="space-y-4">
-                  {groups.map((group) => {
-                    const isExpanded = openGroups[group.id] !== false;
-                    return (
-                      <div key={group.id}>
-                        <button
-                          type="button"
-                          onClick={() => toggleGroup(group.id)}
-                          className="flex w-full items-center justify-between px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400 transition-colors hover:text-slate-700 dark:text-[#7D8BA1] dark:hover:text-[#B5C0D2]"
-                        >
-                          <span>{group.label}</span>
-                          {isExpanded ? (
-                            <ChevronDown className="h-3.5 w-3.5" />
-                          ) : (
-                            <ChevronRight className="h-3.5 w-3.5" />
-                          )}
-                        </button>
+            <nav aria-label="사용법 목차" className="space-y-4">
+              {groups.map((group) => {
+                const isExpanded = openGroups[group.id] !== false;
+                return (
+                  <div key={group.id}>
+                    <button
+                      type="button"
+                      onClick={() => toggleGroup(group.id)}
+                      className="flex w-full items-center justify-between px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-slate-400 transition-colors hover:text-slate-700 dark:text-[#7D8BA1] dark:hover:text-[#B5C0D2]"
+                    >
+                      <span>{group.label}</span>
+                      {isExpanded ? (
+                        <ChevronDown className="h-3.5 w-3.5" />
+                      ) : (
+                        <ChevronRight className="h-3.5 w-3.5" />
+                      )}
+                    </button>
 
-                        {isExpanded && (
-                          <ul className="ml-2 mt-1 space-y-0.5 border-l border-slate-200 pl-2.5 dark:border-[#232D42]">
-                            {(group.docs || []).map((doc) => {
-                              const active = doc.id === activeDocId;
-                              return (
-                                <li key={doc.id}>
-                                  <button
-                                    type="button"
-                                    onClick={() => handleSelectDoc(doc.id)}
-                                    className={`w-full rounded-lg px-2.5 py-1.5 text-left text-[13px] transition-colors ${
-                                      active
-                                        ? 'bg-[#142A52]/[0.08] font-semibold text-[#142A52] dark:bg-sky-400/12 dark:text-sky-200'
-                                        : 'text-slate-600 hover:bg-slate-200/50 hover:text-[#0F172A] dark:text-[#9BA8BD] dark:hover:bg-white/[0.04] dark:hover:text-[#E6EAF2]'
-                                    }`}
-                                  >
-                                    {doc.title}
-                                  </button>
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        )}
-                      </div>
-                    );
-                  })}
-                </nav>
-              </div>
-            ) : (
-              <button
-                type="button"
-                onClick={() => setSidebarOpen(true)}
-                className="inline-flex items-center gap-2 rounded-xl border border-slate-200/80 bg-white/60 px-3 py-2 text-xs font-semibold text-slate-700 backdrop-blur-md transition-colors hover:border-[#142A52]/30 hover:text-[#142A52] dark:border-white/[0.08] dark:bg-white/[0.04] dark:text-[#C5CEDD] dark:hover:border-sky-400/30 dark:hover:text-white"
-                title="목차 펼치기"
-                aria-label="목차 펼치기"
-              >
-                <PanelLeftOpen className="h-4 w-4 text-[#142A52] dark:text-sky-300" />
-                <span>목차</span>
-              </button>
-            )}
+                    {isExpanded && (
+                      <ul className="ml-2 mt-1 space-y-0.5 border-l border-slate-200 pl-2.5 dark:border-[#232D42]">
+                        {(group.docs || []).map((doc) => {
+                          const active = doc.id === activeDocId;
+                          return (
+                            <li key={doc.id}>
+                              <button
+                                type="button"
+                                onClick={() => handleSelectDoc(doc.id)}
+                                className={`w-full rounded-lg px-2.5 py-1.5 text-left text-[13px] transition-colors ${
+                                  active
+                                    ? 'bg-[#142A52]/[0.08] font-semibold text-[#142A52] dark:bg-sky-400/12 dark:text-sky-200'
+                                    : 'text-slate-600 hover:bg-slate-200/50 hover:text-[#0F172A] dark:text-[#9BA8BD] dark:hover:bg-white/[0.04] dark:hover:text-[#E6EAF2]'
+                                }`}
+                              >
+                                {doc.title}
+                              </button>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </div>
+                );
+              })}
+            </nav>
           </aside>
 
           {/* Main Wiki Reading Column */}

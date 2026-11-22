@@ -74,9 +74,17 @@ export function MarkdownRenderer({ content, rawBaseUrl }) {
           className="my-3.5 space-y-2 text-sm leading-[1.8] text-slate-600 dark:text-[#B5C0D2]"
         >
           {listItems.map((item, i) => (
-            <li key={i} className="flex items-start gap-2.5">
-              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#142A52]/60 dark:bg-sky-400/75" />
-              <span>{renderInline(item, rawBaseUrl)}</span>
+            <li
+              key={i}
+              className="flex items-start gap-2.5"
+              style={item.depth > 0 ? { paddingLeft: `${item.depth * 20}px` } : undefined}
+            >
+              {item.depth > 0 ? (
+                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full border border-[#142A52]/55 dark:border-sky-400/70" />
+              ) : (
+                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#142A52]/60 dark:bg-sky-400/75" />
+              )}
+              <span>{renderInline(item.text, rawBaseUrl)}</span>
             </li>
           ))}
         </ul>
@@ -88,7 +96,7 @@ export function MarkdownRenderer({ content, rawBaseUrl }) {
           className="my-3.5 list-decimal space-y-2 pl-5 text-sm leading-[1.8] text-slate-600 dark:text-[#B5C0D2]"
         >
           {listItems.map((item, i) => (
-            <li key={i}>{renderInline(item, rawBaseUrl)}</li>
+            <li key={i}>{renderInline(item.text, rawBaseUrl)}</li>
           ))}
         </ol>
       );
@@ -228,8 +236,10 @@ export function MarkdownRenderer({ content, rawBaseUrl }) {
 
     if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
       if (listType && listType !== 'ul') flushList(index);
+      const leading = (rawLine.match(/^(\s*)/)?.[1] || '').replace(/\t/g, '  ');
+      const depth = Math.min(3, Math.floor(leading.length / 2));
       listType = 'ul';
-      listItems.push(trimmed.slice(2));
+      listItems.push({ text: trimmed.slice(2), depth });
       return;
     }
 
@@ -237,7 +247,7 @@ export function MarkdownRenderer({ content, rawBaseUrl }) {
     if (olMatch) {
       if (listType && listType !== 'ol') flushList(index);
       listType = 'ol';
-      listItems.push(olMatch[1]);
+      listItems.push({ text: olMatch[1], depth: 0 });
       return;
     }
 

@@ -231,7 +231,9 @@ export default function App() {
         if (tabId === 'home') {
           setTimeout(() => scrollToSlide(0), 40);
         } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            document.getElementById('page-scroll-container')?.scrollTo({ top: 0 });
+          }, 20);
         }
       }
     },
@@ -264,10 +266,10 @@ export default function App() {
       : null;
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-[#F8FAFC] text-[#0F172A] transition-colors duration-200 dark:bg-[#0F1420] dark:text-[#E6EAF2]">
+    <div className="relative flex h-dvh flex-col overflow-hidden bg-[#F8FAFC] text-[#0F172A] transition-colors duration-200 dark:bg-[#0F1420] dark:text-[#E6EAF2]">
       <AmbientBackground />
 
-      <div className="relative z-10 flex min-h-screen flex-col">
+      <div className="relative z-10 flex h-dvh flex-col overflow-hidden">
         <Navbar
           activeTab={activeTab}
           onSelectTab={handleSelectTab}
@@ -286,7 +288,7 @@ export default function App() {
 
             <main
               ref={snapContainerRef}
-              className="penso-snap-container h-dvh overflow-y-auto scroll-smooth md:snap-y md:snap-mandatory"
+              className="penso-snap-container flex-1 overflow-y-auto scroll-smooth md:snap-y md:snap-mandatory"
             >
               {/* Slide 1: Hero + Interactive Editor Mockup together */}
               <section
@@ -295,7 +297,7 @@ export default function App() {
                 }}
                 data-slide-index={0}
                 id="hero"
-                className="flex min-h-full snap-start flex-col items-center justify-center px-4 pb-6 pt-20 sm:px-6 lg:px-8"
+                className="flex min-h-full snap-start flex-col items-center justify-center px-4 py-6 sm:px-6 lg:px-8"
               >
                 <div className="mx-auto w-full max-w-6xl">
                   {/* Compact Hero Header */}
@@ -437,13 +439,16 @@ export default function App() {
             </main>
           </>
         ) : (
-          <>
-            <main className="flex-1 pt-16">
+          <div
+            id="page-scroll-container"
+            className="penso-scroll flex flex-1 flex-col overflow-y-auto"
+          >
+            <main className="flex-1">
               {activeTab === 'guide' && <GuidePage />}
               {activeTab === 'community' && <CommunityPage />}
             </main>
             <Footer />
-          </>
+          </div>
         )}
       </div>
     </div>
