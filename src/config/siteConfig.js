@@ -9,9 +9,9 @@ export const SITE_CONFIG = {
 
   // GitHub 공개 릴리즈 및 사용법 문서 저장소 설정
   github: {
-    owner: 'park-chris',
+    owner: 'penso-friends',
     repo: 'penso-release',
-    docsRepo: 'penso',
+    docsRepo: 'penso-page',
     docsBranch: 'main',
     docsPath: 'docs',
     get apiLatestReleaseUrl() {
@@ -39,11 +39,11 @@ export const SITE_CONFIG = {
 
   // 플랫폼별 링크 (비워두면 자동으로 '준비 중' 상태로 표시됩니다)
   WEB_APP_URL: '', // 예: 'https://app.penso.kr'
-  ANDROID_APK_URL: '', // 예: 'https://github.com/park-chris/penso-release/releases/latest/download/penso-android.apk'
+  ANDROID_APK_URL: '', // 예: 'https://github.com/penso-friends/penso-release/releases/latest/download/penso-android.apk'
 
   // 문의 & 피드백 & 후원 링크
   CONTACT_EMAIL: 'contact@penso.app',
-  FEEDBACK_URL: 'https://github.com/park-chris/penso-release/issues',
+  FEEDBACK_URL: 'https://github.com/penso-friends/penso-release/issues',
   BUY_ME_A_COFFEE_URL: 'https://buymeacoffee.com/pensostudio',
 };
 
