@@ -15,11 +15,7 @@
   }
 }
 
-.font-serif-kr {
-  font-family: "Noto Serif KR", Georgia, Cambria, "Times New Roman", serif;
-}
-
-/* Subtle custom scrollbars for editor mockup & modals */
+/* Subtle custom scrollbars for modals */
 .penso-scroll::-webkit-scrollbar {
   width: 6px;
   height: 6px;

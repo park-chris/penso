@@ -1,0 +1,134 @@
+[
+  {
+    "id": "start",
+    "label": "시작하기",
+    "docs": [
+      {
+        "id": "install",
+        "title": "설치 및 최초 실행",
+        "lead": "Windows와 macOS에서 Penso를 설치하고 처음 실행하는 방법을 안내합니다.",
+        "file": "start/install.md"
+      },
+      {
+        "id": "layout",
+        "title": "화면 구성",
+        "lead": "3단 집필 레이아웃과 다양한 환경을 제어하는 설정창을 살펴봅니다.",
+        "file": "start/layout.md"
+      }
+    ]
+  },
+  {
+    "id": "writing",
+    "label": "집필 & 관리",
+    "docs": [
+      {
+        "id": "folders",
+        "title": "폴더",
+        "lead": "7개 기본 폴더의 역할과 세부 폴더로 계층 분류하는 방법을 안내합니다.",
+        "file": "writing/folders.md"
+      },
+      {
+        "id": "editor",
+        "title": "에디터",
+        "lead": "원고 에디터와 나머지 폴더(블록) 에디터의 차이점과 기능을 설명합니다.",
+        "file": "writing/editor.md"
+      },
+      {
+        "id": "templates",
+        "title": "템플릿",
+        "lead": "폴더별 페이지 템플릿을 지정해 새 문서를 일관된 양식으로 시작하세요.",
+        "file": "writing/templates.md"
+      },
+      {
+        "id": "widgets",
+        "title": "커스텀 위젯",
+        "lead": "집필 흐름에 맞춰 좌·우에 배치할 수 있는 9가지 위젯을 소개합니다.",
+        "file": "writing/widgets.md"
+      },
+      {
+        "id": "wiki",
+        "title": "설정집 위키",
+        "lead": "폴더 순서와 파일 순서를 기반으로 자동 구성되는 설정집 위키입니다.",
+        "file": "writing/wiki.md"
+      },
+      {
+        "id": "mindmap",
+        "title": "마인드맵",
+        "lead": "인물 관계도, 세력 구도, 사건 흐름을 여러 개의 보드로 시각화합니다.",
+        "file": "writing/mindmap.md"
+      }
+    ]
+  },
+  {
+    "id": "data",
+    "label": "데이터",
+    "docs": [
+      {
+        "id": "storage-concept",
+        "title": "펜소 저장 기능 개념",
+        "lead": "내 기기 우선 로컬 저장과 같은 네트워크 내 기기 간 통신 구조를 설명합니다.",
+        "file": "data/storage-concept.md"
+      },
+      {
+        "id": "google-drive",
+        "title": "구글 드라이브 연동",
+        "lead": "개인 Google Drive에 원고와 설정 데이터를 안전하게 백업하고 복원합니다.",
+        "file": "data/google-drive.md"
+      },
+      {
+        "id": "login-key",
+        "title": "Login Key & 암호화 통신",
+        "lead": "회원가입 없이 고유 키 하나로 암호화 저장소를 만들고 동기화하는 원리입니다.",
+        "file": "data/login-key.md"
+      },
+      {
+        "id": "import-export",
+        "title": "워크스페이스 및 프로젝트 내보내기 · 가져오기",
+        "lead": "전체 워크스페이스나 개별 프로젝트를 백업 파일로 내보내고 복원합니다.",
+        "file": "data/import-export.md"
+      }
+    ]
+  },
+  {
+    "id": "ai",
+    "label": "AI 기능",
+    "docs": [
+      {
+        "id": "api-key",
+        "title": "내 API 키 직접 연결",
+        "lead": "원고 학습 걱정 없이 본인의 AI API 키를 직접 연결해 사용하는 BYOK 구조입니다.",
+        "file": "ai/api-key.md"
+      },
+      {
+        "id": "proofread",
+        "title": "퇴고하기",
+        "lead": "선택한 구간의 비문·호흡·묘사를 원문과 비교하며 퇴고합니다.",
+        "file": "ai/proofread.md"
+      },
+      {
+        "id": "alternatives",
+        "title": "대체 표현",
+        "lead": "단어나 문장을 드래그해 상황에 어울리는 다양한 대체 표현을 추천받습니다.",
+        "file": "ai/alternatives.md"
+      },
+      {
+        "id": "style-guide",
+        "title": "문체 관리",
+        "lead": "작품 고유의 서술 톤과 어조 규칙을 등록해 AI 결과물에 일관되게 반영합니다.",
+        "file": "ai/style-guide.md"
+      }
+    ]
+  },
+  {
+    "id": "help",
+    "label": "도움말",
+    "docs": [
+      {
+        "id": "faq",
+        "title": "자주 묻는 질문",
+        "lead": "Penso 사용 중 자주 궁금해하시는 질문들을 모았습니다.",
+        "file": "help/faq.md"
+      }
+    ]
+  }
+]

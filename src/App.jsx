@@ -11,6 +11,7 @@ import { Navbar } from './components/Navbar';
 import { SlideIndicator } from './components/SlideIndicator';
 import { HeroMockup } from './components/HeroMockup';
 import { FeaturesBento } from './components/FeaturesBento';
+import { CustomWidgetsSection } from './components/CustomWidgetsSection';
 import { SyncSecuritySection } from './components/SyncSecuritySection';
 import { DownloadSection } from './components/DownloadSection';
 import { GuidePage } from './components/GuidePage';
@@ -23,6 +24,7 @@ const HOME_SLIDES = [
   { id: 'hero', label: '시작' },
   { id: 'ownership', label: '보안 · 동기화' },
   { id: 'features', label: '주요 기능' },
+  { id: 'widgets', label: '커스텀 위젯' },
   { id: 'download', label: '다운로드' },
 ];
 
@@ -337,7 +339,7 @@ export default function App() {
                       ) : (
                         <button
                           type="button"
-                          onClick={() => scrollToSlide(3)}
+                          onClick={() => scrollToSlide(HOME_SLIDES.length - 1)}
                           className="inline-flex items-center gap-2 rounded-xl bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-zinc-800 dark:bg-white dark:text-[#0A0B0E] dark:hover:bg-zinc-200"
                         >
                           <Download className="h-4 w-4" />
@@ -347,7 +349,7 @@ export default function App() {
 
                       <button
                         type="button"
-                        onClick={() => scrollToSlide(3)}
+                        onClick={() => scrollToSlide(HOME_SLIDES.length - 1)}
                         className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200/80 bg-white/60 px-4 py-2.5 text-sm font-semibold text-zinc-700 backdrop-blur-md transition-colors hover:bg-white/80 dark:border-white/[0.12] dark:bg-white/[0.04] dark:text-zinc-200 dark:hover:bg-white/[0.08]"
                       >
                         <span>다른 OS</span>
@@ -398,12 +400,25 @@ export default function App() {
                 <FeaturesBento />
               </section>
 
-              {/* Slide 4: Download + Footer */}
+              {/* Slide 4: Custom Widgets */}
               <section
                 ref={(el) => {
                   slideRefs.current[3] = el;
                 }}
                 data-slide-index={3}
+                id="widgets"
+                aria-labelledby="widgets-heading"
+                className="flex min-h-full snap-start flex-col items-center justify-center py-12"
+              >
+                <CustomWidgetsSection />
+              </section>
+
+              {/* Slide 5: Download + Footer */}
+              <section
+                ref={(el) => {
+                  slideRefs.current[4] = el;
+                }}
+                data-slide-index={4}
                 id="download"
                 aria-labelledby="download-heading"
                 className="flex min-h-full snap-start flex-col justify-between pt-12"

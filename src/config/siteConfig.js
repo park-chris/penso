@@ -11,6 +11,7 @@ export const SITE_CONFIG = {
   github: {
     owner: 'park-chris',
     repo: 'penso-release',
+    docsRepo: 'penso',
     docsBranch: 'main',
     docsPath: 'docs',
     get apiLatestReleaseUrl() {
@@ -20,7 +21,7 @@ export const SITE_CONFIG = {
       return `https://api.github.com/repos/${this.owner}/${this.repo}/releases?per_page=10`;
     },
     get docsRawBaseUrl() {
-      return `https://raw.githubusercontent.com/${this.owner}/${this.repo}/${this.docsBranch}/${this.docsPath}`;
+      return `https://raw.githubusercontent.com/${this.owner}/${this.docsRepo}/${this.docsBranch}/${this.docsPath}`;
     },
     get docsManifestUrl() {
       return `${this.docsRawBaseUrl}/index.json`;
