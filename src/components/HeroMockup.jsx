@@ -1,10 +1,10 @@
-export function HeroMockup({ isDark = true, className = 'mt-6' }) {
+export function HeroMockup({ isDark = true, className = '' }) {
   const wideSrc = isDark ? './preview-dark-wide.jpg' : './preview-light-wide.jpg';
   const narrowSrc = isDark ? './preview-dark-narrow.jpg' : './preview-light-narrow.jpg';
 
   return (
-    <div className={`mx-auto w-full max-w-[460px] md:max-w-[840px] ${className}`}>
-      <div className="overflow-hidden rounded-2xl shadow-[0_24px_70px_-24px_rgba(15,23,42,0.22)] dark:shadow-[0_24px_80px_-24px_rgba(0,0,0,0.72)]">
+    <div className={`mx-auto w-full max-w-[460px] md:max-w-[860px] ${className}`}>
+      <div className="overflow-hidden rounded-t-2xl shadow-[0_-10px_60px_-24px_rgba(15,23,42,0.2)] dark:shadow-[0_-12px_70px_-20px_rgba(0,0,0,0.75)]">
         <picture key={isDark ? 'dark' : 'light'}>
           <source media="(min-width: 768px)" srcSet={wideSrc} />
           <img

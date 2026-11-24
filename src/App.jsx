@@ -290,31 +290,31 @@ export default function App() {
               ref={snapContainerRef}
               className="penso-snap-container flex-1 overflow-y-auto scroll-smooth md:snap-y md:snap-mandatory"
             >
-              {/* Slide 1: Hero + Interactive Editor Mockup together */}
+              {/* Slide 1: Hero (spacious top) + Editor Screenshot anchored flush to bottom */}
               <section
                 ref={(el) => {
                   slideRefs.current[0] = el;
                 }}
                 data-slide-index={0}
                 id="hero"
-                className="flex min-h-full snap-start flex-col items-center justify-center px-4 py-6 sm:px-6 lg:px-8"
+                className="flex min-h-full snap-start flex-col items-center justify-between px-4 pb-0 pt-8 sm:px-6 sm:pt-10 lg:px-8"
               >
-                <div className="mx-auto w-full max-w-6xl">
-                  {/* Compact Hero Header */}
-                  <div className="mx-auto max-w-3xl text-center">
-                    <h1 className="text-2xl font-extrabold leading-[1.22] tracking-[-0.03em] text-zinc-950 dark:text-white sm:text-3xl lg:text-[38px]">
+                <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col justify-between">
+                  {/* Hero Header with generous breathing room */}
+                  <div className="mx-auto flex max-w-3xl flex-1 flex-col items-center justify-center py-6 text-center sm:py-8">
+                    <h1 className="text-2xl font-extrabold leading-[1.22] tracking-[-0.03em] text-zinc-950 dark:text-white sm:text-3xl lg:text-[40px]">
                       소설의 첫 문장부터 완결까지,{' '}
                       <span className="bg-gradient-to-r from-indigo-500 to-sky-400 bg-clip-text text-transparent dark:from-indigo-300 dark:to-sky-200">
                         이야기에만 집중하세요
                       </span>
                     </h1>
 
-                    <p className="mx-auto mt-2.5 max-w-xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-[15px]">
-                      회원가입·구독료 없는 무료 웹소설 에디터, Penso.
+                    <p className="mx-auto mt-3.5 max-w-xl text-sm text-zinc-500 dark:text-zinc-400 sm:text-base">
+                      회원가입·구독료 없는 무료 글쓰기 에디터
                     </p>
 
                     {/* Primary & Secondary CTAs */}
-                    <div className="mt-4 flex flex-wrap items-center justify-center gap-2.5">
+                    <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
                       {primaryDownload.asset?.downloadUrl ? (
                         <a
                           href={primaryDownload.asset.downloadUrl}
@@ -328,6 +328,11 @@ export default function App() {
                               ? ` (${primaryDownload.subLabel})`
                               : ''}
                           </span>
+                          {release?.version && (
+                            <span className="text-xs font-medium opacity-70">
+                              {release.version}
+                            </span>
+                          )}
                         </a>
                       ) : loading ? (
                         <button
@@ -371,8 +376,8 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* Interactive Editor Preview right below in the same screen */}
-                  <HeroMockup isDark={isDark} className="mt-5 sm:mt-6" />
+                  {/* Editor Preview anchored flush to the bottom edge */}
+                  <HeroMockup isDark={isDark} className="mt-2 shrink-0" />
                 </div>
               </section>
 

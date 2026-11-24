@@ -41,15 +41,15 @@ export function CustomWidgetsSection() {
       </div>
 
       {/* Centered 3x3 1:1 Square Monochrome Checkerboard */}
-      <div className="mx-auto mt-10 w-full max-w-[490px]">
-        <div className="grid grid-cols-3 gap-3.5">
+      <div className="mx-auto mt-12 w-full max-w-[540px]">
+        <div className="grid grid-cols-3 gap-4 sm:gap-5">
           {WIDGET_TILES.map((item, idx) => {
             const Icon = item.icon;
             const isAlt = idx % 2 === 1;
             return (
               <div
                 key={item.title}
-                className={`group flex aspect-square flex-col items-center justify-center rounded-2xl border p-3 text-center backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 ${
+                className={`group flex aspect-square flex-col items-center justify-center rounded-2xl border p-4 text-center backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 ${
                   isAlt
                     ? 'border-slate-200/70 bg-white/45 hover:bg-white/70 dark:border-white/[0.07] dark:bg-white/[0.02] dark:hover:bg-white/[0.05]'
                     : 'border-slate-200/90 bg-white/70 hover:bg-white/85 dark:border-white/[0.1] dark:bg-white/[0.045] dark:hover:bg-white/[0.07]'

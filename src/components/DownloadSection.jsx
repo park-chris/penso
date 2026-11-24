@@ -15,6 +15,7 @@ function OsDownloadDropdownCard({
   icon: Icon,
   title,
   subtitle,
+  version,
   recommended,
   loading,
   error,
@@ -27,7 +28,7 @@ function OsDownloadDropdownCard({
 
   return (
     <div
-      className={`relative flex flex-col justify-between rounded-2xl bg-white/60 p-6 backdrop-blur-md transition-colors dark:bg-white/[0.035] ${
+      className={`relative flex flex-col justify-between rounded-2xl bg-white/60 p-7 backdrop-blur-md transition-colors dark:bg-white/[0.035] ${
         isOpen ? 'z-30' : 'z-0'
       } ${
         recommended
@@ -108,10 +109,15 @@ function OsDownloadDropdownCard({
                         className="flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition-colors hover:bg-zinc-100 dark:hover:bg-white/[0.07]"
                       >
                         <div className="min-w-0">
-                          <div className="text-xs font-semibold text-zinc-900 dark:text-zinc-100">
-                            {opt.label}
+                          <div className="flex items-center gap-1.5 text-xs font-semibold text-zinc-900 dark:text-zinc-100">
+                            <span>{opt.label}</span>
+                            {version && (
+                              <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-600 dark:bg-white/[0.08] dark:text-sky-200">
+                                {version}
+                              </span>
+                            )}
                           </div>
-                          <div className="mt-0.5 text-[11px] text-zinc-500 dark:text-zinc-400">
+                          <div className="mt-0.5 truncate text-[11px] text-zinc-500 dark:text-zinc-400">
                             {opt.sub}
                             {opt.asset.size ? ` · ${opt.asset.size}` : ''}
                           </div>
@@ -232,24 +238,41 @@ export function DownloadSection({
           </h2>
         </div>
 
-        {error && (
-          <button
-            type="button"
-            onClick={onRetry}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-50 dark:border-white/[0.1] dark:bg-white/[0.04] dark:text-zinc-300 dark:hover:bg-white/[0.08]"
-          >
-            <AlertCircle className="h-3.5 w-3.5 text-amber-400" />
-            <span>릴리즈 다시 불러오기</span>
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          {release?.version && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200/80 bg-white/60 px-3 py-1 text-xs font-medium text-slate-600 backdrop-blur-md dark:border-white/[0.1] dark:bg-white/[0.04] dark:text-zinc-300">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
+              <span className="font-semibold text-zinc-900 dark:text-white">
+                {release.version}
+              </span>
+              {release.publishedAt && (
+                <span className="text-slate-400 dark:text-zinc-400">
+                  · {release.publishedAt}
+                </span>
+              )}
+            </span>
+          )}
+
+          {error && (
+            <button
+              type="button"
+              onClick={onRetry}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 text-xs font-medium text-zinc-600 transition-colors hover:bg-zinc-50 dark:border-white/[0.1] dark:bg-white/[0.04] dark:text-zinc-300 dark:hover:bg-white/[0.08]"
+            >
+              <AlertCircle className="h-3.5 w-3.5 text-amber-400" />
+              <span>릴리즈 다시 불러오기</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Single Row: Windows | macOS | Android & iOS (stacked vertically) */}
-      <div className="relative z-20 mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
+      <div className="relative z-20 mt-10 grid grid-cols-1 gap-5 sm:mt-12 lg:grid-cols-3">
         <OsDownloadDropdownCard
           icon={Monitor}
           title="Windows"
           subtitle="Windows 10 / 11 (64-bit) · .exe"
+          version={release?.version}
           recommended={isWindows}
           loading={loading}
           error={error}
@@ -263,6 +286,7 @@ export function DownloadSection({
           icon={Laptop}
           title="macOS"
           subtitle="Apple Silicon (M1~M4) · Intel · .dmg"
+          version={release?.version}
           recommended={isMac}
           loading={loading}
           error={error}
@@ -273,7 +297,7 @@ export function DownloadSection({
         />
 
         {/* Right Column: Android & iOS stacked vertically */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-5">
           <div className="flex flex-1 items-center justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white/60 px-5 py-4 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.035]">
             <div className="flex items-center gap-3">
               <div className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-zinc-100 text-zinc-700 dark:bg-white/[0.07] dark:text-zinc-200">
@@ -318,7 +342,7 @@ export function DownloadSection({
       </div>
 
       {/* Minimal Security Notice */}
-      <div className="mt-4 flex flex-col gap-2 rounded-2xl border border-slate-200/80 bg-white/60 px-5 py-3 text-xs text-zinc-500 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.035] dark:text-zinc-400 md:flex-row md:items-center md:justify-between">
+      <div className="mt-6 flex flex-col gap-2 rounded-2xl border border-slate-200/80 bg-white/60 px-5 py-3.5 text-xs text-zinc-500 backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.035] dark:text-zinc-400 md:flex-row md:items-center md:justify-between">
         <span className="inline-flex items-center gap-1.5 font-semibold text-zinc-700 dark:text-zinc-200">
           <ShieldAlert className="h-4 w-4 text-amber-400" />
           최초 실행 시 보안 경고가 뜨면
