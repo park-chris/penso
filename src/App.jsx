@@ -16,9 +16,10 @@ import { SyncSecuritySection } from './components/SyncSecuritySection';
 import { DownloadSection } from './components/DownloadSection';
 import { GuidePage } from './components/GuidePage';
 import { CommunityPage } from './components/CommunityPage';
+import { PrivacyPage } from './components/PrivacyPage';
 import { Footer } from './components/Footer';
 
-const VALID_TABS = new Set(['home', 'guide', 'community']);
+const VALID_TABS = new Set(['home', 'guide', 'community', 'privacy']);
 
 const HOME_SLIDES = [
   { id: 'hero', label: '시작' },
@@ -439,7 +440,7 @@ export default function App() {
                     userOS={userOS}
                   />
                 </div>
-                <Footer />
+                <Footer onOpenPrivacy={() => handleSelectTab('privacy')} />
               </section>
             </main>
           </>
@@ -451,8 +452,11 @@ export default function App() {
             <main className="flex-1">
               {activeTab === 'guide' && <GuidePage />}
               {activeTab === 'community' && <CommunityPage />}
+              {activeTab === 'privacy' && (
+                <PrivacyPage onBack={() => handleSelectTab('home')} />
+              )}
             </main>
-            <Footer />
+            <Footer onOpenPrivacy={() => handleSelectTab('privacy')} />
           </div>
         )}
       </div>

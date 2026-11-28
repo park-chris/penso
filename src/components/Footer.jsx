@@ -1,11 +1,23 @@
 import { Coffee } from 'lucide-react';
 import { SITE_CONFIG } from '../config/siteConfig';
 
-export function Footer() {
+export function Footer({ onOpenPrivacy }) {
   return (
     <footer className="w-full bg-transparent">
       <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 py-6 text-xs text-zinc-500 sm:px-6 lg:px-8">
         <span>© {new Date().getFullYear()} Penso. All rights reserved.</span>
+        {onOpenPrivacy && (
+          <>
+            <span className="text-zinc-300 dark:text-zinc-700">·</span>
+            <button
+              type="button"
+              onClick={onOpenPrivacy}
+              className="font-medium text-zinc-500 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+            >
+              개인정보처리방침
+            </button>
+          </>
+        )}
         {SITE_CONFIG.BUY_ME_A_COFFEE_URL && (
           <>
             <span className="text-zinc-300 dark:text-zinc-700">·</span>
